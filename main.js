@@ -61,7 +61,7 @@ client.on('message', msg => {
                 .setColor('#00FF00')
                 .setImage('https://cdn.discordapp.com/attachments/692844705297465484/732276454662078544/Untitled.png');
                 msg.channel.send({embed:embed});
-            break;
+            break;      
             case 'membed':
                 var embed = new Discord.MessageEmbed()
                 .setTitle('m')
@@ -96,13 +96,16 @@ client.on('message', msg => {
             break;
         };
     } else {
-        if(msg.content.startsWith('m') && msg.content.endsWith('m')) {
+        if(msg.content.startsWith('m') && msg.content.endsWith('m') || msg.content.startsWith('M') && msg.content.endsWith('M')) {
             msg.channel.send('m');
         };
-        if(msg.content.startsWith('n') && msg.content.endsWith('n')) {
+        if(msg.content.startsWith('n') && msg.content.endsWith('n') || msg.content.startsWith('N') && msg.content.endsWith('N')) {
             msg.channel.send('n is bad letter m is much better');
+        };
+        if(msg.content.startsWith('H') && msg.content.endsWith('H') || msg.content.startsWith('h') && msg.content.endsWith('h')) {
+            msg.channel.send('h is bad letter m is much better');
         };
     };
 });
 
-client.login(token.token);
+client.login(token.token); 
