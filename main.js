@@ -7,6 +7,7 @@ const prefix = 'm ';
 const defaultstatus = 'm. | m help';
 const mgodid = '546768454427082785';
 const token = require('./token.json');
+const m = 'm best letter'
 
 //shit for eval
 const clean = text => {
@@ -33,9 +34,12 @@ client.on('message', msg => {
                 var embed = new Discord.MessageEmbed()
                 .setTitle('Help')
                 .setColor('#00FF00')
+                .setThumbnail('https://cdn.discordapp.com/attachments/692844705297465484/732276454662078544/Untitled.png')
+                .setAuthor('Lolbird123#3333', 'https://cdn.discordapp.com/avatars/546768454427082785/41b62796db3ef17d1968cb07770b8aef.webp?size=128')
                 .setDescription(`Format: ${prefix}(command)`)
                 .addField('help', 'Display this.')
                 .addField('ping','check if the bot is working (prob not tbh)')
+                .addField('version', 'check bot version')
                 .addField('m', 'm')
                 .addField('bigm','big m')
                 .addField('pic','m picture')
@@ -46,6 +50,13 @@ client.on('message', msg => {
             case 'ping':
                 var embed = new Discord.MessageEmbed()
                 .setTitle('Yes, m is here.')
+                .setColor('#00FF00');
+                msg.channel.send({embed:embed});
+            break;
+            case 'version':
+                var embed = new Discord.MessageEmbed()
+                .setTitle('Version 2.5')
+                .addField('Source Code: ', 'https://github.com/Lolbird123/m-bot-source')
                 .setColor('#00FF00');
                 msg.channel.send({embed:embed});
             break;
@@ -69,8 +80,12 @@ client.on('message', msg => {
                 msg.channel.send({embed:embed});
             break;
             case 'say':
-                msg.channel.send(args.join(' '));
-                console.log(`${msg.author.tag} used say for ${args.join(' ')}`);
+                if(!args.join('').includes('@everyone') && !args.join('').includes('@here')){
+                    msg.channel.send(args.join(' '));
+                    console.log(`${msg.author.tag} used m say for: '${args.join('')}'`)
+                } else {
+                    msg.channel.send('no.');
+                }
             break;
             case 'eval':
                 //i have -1% of an idea of how this works.
