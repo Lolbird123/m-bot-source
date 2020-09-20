@@ -9,7 +9,6 @@
   "author": "Lolbird123",
   "license": "ISC",
   "dependencies": {
-    "dependencies": "0.0.1",
     "discord.js": "^12.2.0"
   }
 }
