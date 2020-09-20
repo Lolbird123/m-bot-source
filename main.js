@@ -55,7 +55,7 @@ client.on('message', msg => {
             break;
             case 'version':
                 var embed = new Discord.MessageEmbed()
-                .setTitle('Version 2.5')
+                .setTitle('Version 2.6.1')
                 .addField('Source Code: ', 'https://github.com/Lolbird123/m-bot-source')
                 .setColor('#00FF00');
                 msg.channel.send({embed:embed});
@@ -82,7 +82,7 @@ client.on('message', msg => {
             case 'say':
                 if(!args.join('').includes('@everyone') && !args.join('').includes('@here')){
                     msg.channel.send(args.join(' '));
-                    console.log(`${msg.author.tag} used m say for: '${args.join('')}'`)
+                    console.log(`${msg.author.tag} used m say for: '${args.join('')}' in: '${msg.guild.name}'`)
                 } else {
                     msg.channel.send('no.');
                 }
@@ -111,15 +111,12 @@ client.on('message', msg => {
             break;
         };
     } else {
-        if(msg.content.match(/\A[mM]\z/)) {
-            msg.channel.send('m');
-        };
-        if(msg.content.match(/\A[nN]\z/)) {
-            msg.channel.send('n is bad letter m is much better');
-        };
-        if(msg.content.match(/\A[hH]\z/)) {
-            msg.channel.send('h is bad letter m is much better');
-        };
+        var hasM = new RegExp("^[mM]+$").test(msg.content);
+        var hasH = new RegExp("^[hH]+$").test(msg.content);
+        var hasN = new RegExp("^[nN]+$").test(msg.content);
+        if (hasM == true) msg.channel.send('m');
+        if (hasN == true) msg.channel.send('n is bad letter m is much better');
+        if (hasH == true) msg.channel.send('h is bad letter m is much better');
     };
 });
 
