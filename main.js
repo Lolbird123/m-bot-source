@@ -111,13 +111,13 @@ client.on('message', msg => {
             break;
         };
     } else {
-        if(msg.content.startsWith('m') && msg.content.endsWith('m') || msg.content.startsWith('M') && msg.content.endsWith('M')) {
+        if(msg.content.match(/\A[mM]\z/)) {
             msg.channel.send('m');
         };
-        if(msg.content.startsWith('n') && msg.content.endsWith('n') || msg.content.startsWith('N') && msg.content.endsWith('N')) {
+        if(msg.content.match(/\A[nN]\z/)) {
             msg.channel.send('n is bad letter m is much better');
         };
-        if(msg.content.startsWith('H') && msg.content.endsWith('H') || msg.content.startsWith('h') && msg.content.endsWith('h')) {
+        if(msg.content.match(/\A[hH]\z/)) {
             msg.channel.send('h is bad letter m is much better');
         };
     };
