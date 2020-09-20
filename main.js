@@ -40,7 +40,6 @@ client.on('message', msg => {
                 .addField('help', 'Display this.')
                 .addField('ping','check if the bot is working (prob not tbh)')
                 .addField('version', 'check bot version')
-                .addField('m', 'm')
                 .addField('bigm','big m')
                 .addField('pic','m picture')
                 .addField('membed','m but in embed')
@@ -55,13 +54,10 @@ client.on('message', msg => {
             break;
             case 'version':
                 var embed = new Discord.MessageEmbed()
-                .setTitle('Version 2.6.1')
+                .setTitle('Version 2.7')
                 .addField('Source Code: ', 'https://github.com/Lolbird123/m-bot-source')
                 .setColor('#00FF00');
                 msg.channel.send({embed:embed});
-            break;
-            case 'm':
-                msg.channel.send('m');
             break;
             case 'bigm':
                 msg.channel.send(':m:');
@@ -80,6 +76,10 @@ client.on('message', msg => {
                 msg.channel.send({embed:embed});
             break;
             case 'say':
+                var hasH = new RegExp("^[hH]+$").test(args.join(' '));
+                var hasN = new RegExp("^[nN]+$").test(args.join(' '));
+                if (hasN == true) {msg.channel.send('n is bad letter m is much better'); break;}
+                if (hasH == true) {msg.channel.send('h is bad letter m is much better'); break;}
                 if(!args.join('').includes('@everyone') && !args.join('').includes('@here')){
                     msg.channel.send(args.join(' '));
                     console.log(`${msg.author.tag} used m say for: '${args.join('')}' in: '${msg.guild.name}'`)
