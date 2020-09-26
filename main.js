@@ -8,6 +8,7 @@ const defaultstatus = 'm. | m help';
 const mgodid = '546768454427082785';
 const token = require('./token.json');
 const m = 'm best letter'
+let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 
 //shit for eval
 const clean = text => {
@@ -27,6 +28,8 @@ client.on('message', msg => {
     if(msg.author.bot) return;
     const args = msg.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
+    if (!points[msg.author.tag]) points[msg.author.tag] = {points: 0};
+    let userData = points[msg.author.tag];
 
     if(msg.content.startsWith(prefix)){
         switch (cmd) {
@@ -44,6 +47,11 @@ client.on('message', msg => {
                 .addField('pic','m picture')
                 .addField('membed','m but in embed')
                 .addField('say', 'say somthin')
+                .addField('beta stuff:','(experemental)')
+                .addField('points','check your m points')
+                .addField('checkpoints','check a users m points by name+tag')
+                .addField('getpoint','get 1 m point. yup just one.')
+                .addField('setpoints','set a users points. only for m god.')
                 msg.channel.send({embed:embed});
             break;
             case 'ping':
@@ -54,10 +62,55 @@ client.on('message', msg => {
             break;
             case 'version':
                 var embed = new Discord.MessageEmbed()
-                .setTitle('Version 2.8.1')
+                .setTitle('Version 2.9')
                 .addField('Source Code: ', 'https://github.com/Lolbird123/m-bot-source')
                 .setColor('#00FF00');
                 msg.channel.send({embed:embed});
+            break;
+            case 'points':
+                var embed = new Discord.MessageEmbed()
+                .setTitle(`You have: ${userData.points} m points.`)
+                .setColor('#00FF00');
+                msg.channel.send({embed:embed});
+            break;
+            case 'checkpoints':
+                if(args.length === 1){
+                    let targetUserTag = args[0];
+                    let targetUserData = points[targetUserTag];
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle(`'${targetUserTag}' has: ${targetUserData.points} m points.`)
+                    .setColor('#00FF00');
+                    msg.channel.send({embed:embed});
+                } else {
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle('No user name+tag specified.')
+                    .setColor('#FF0000');
+                    msg.channel.send({embed:embed});
+                };
+            break;
+            case 'getpoint':
+                var embed = new Discord.MessageEmbed()
+                .setTitle(`Fine, here is an m point.`)
+                .setColor('#00FF00');
+                msg.channel.send({embed:embed});
+                userData.points++;
+            break;
+            case 'setpoints':
+                if(msg.author.id === mgodid){
+                    let pointsToSet = args[0];
+                    let targetUserTag = args[1];
+                    let targetUserData = points[targetUserTag];
+                    targetUserData.points = pointsToSet
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle(`Gave: '${targetUserTag}' ${pointsToSet} m points.`)
+                    .setColor('#00FF00');
+                    msg.channel.send({embed:embed});
+                }else{
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle('Not for you.')
+                    .setColor('#FF0000');
+                    msg.channel.send({embed:embed});
+                };
             break;
             case 'bigm':
                 msg.channel.send(':m:');
