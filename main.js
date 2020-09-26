@@ -54,7 +54,7 @@ client.on('message', msg => {
             break;
             case 'version':
                 var embed = new Discord.MessageEmbed()
-                .setTitle('Version 2.7')
+                .setTitle('Version 2.8.1')
                 .addField('Source Code: ', 'https://github.com/Lolbird123/m-bot-source')
                 .setColor('#00FF00');
                 msg.channel.send({embed:embed});
@@ -111,12 +111,14 @@ client.on('message', msg => {
             break;
         };
     } else {
-        var hasM = new RegExp("^[mM]+$").test(msg.content);
-        var hasH = new RegExp("^[hH]+$").test(msg.content);
-        var hasN = new RegExp("^[nN]+$").test(msg.content);
+        let rawMsg = msg.content.replace(/[\*._~]/g, '');
+        var hasM = new RegExp("^[mM]+$").test(rawMsg);
+        var hasH = new RegExp("^[hH]+$").test(rawMsg);
+        var hasN = new RegExp("^[nN]+$").test(rawMsg);
         if (hasM == true) msg.channel.send('m');
         if (hasN == true) msg.channel.send('n is bad letter m is much better');
         if (hasH == true) msg.channel.send('h is bad letter m is much better');
+        if (msg.content.includes(':regional_indicator_m:') || msg.content.includes(':m:')) msg.channel.send('m');
     };
 });
 
